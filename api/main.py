@@ -4,15 +4,20 @@ import functions_framework
 import qrcode
 from qrcode.image.pil import PilImage
 
+ALLOWED_ORIGINS = {"https://qrhub.tech", "https://www.qrhub.tech"}
+
 
 @functions_framework.http
 def qr_handler(request):
+    origin = request.headers.get("Origin", "")
+    cors_origin = origin if origin in ALLOWED_ORIGINS else "https://qrhub.tech"
+
     if request.method == "OPTIONS":
         return (
             "",
             204,
             {
-                "Access-Control-Allow-Origin": "https://qrhub.tech",
+                "Access-Control-Allow-Origin": cors_origin,
                 "Access-Control-Allow-Methods": "POST",
                 "Access-Control-Allow-Headers": "Content-Type",
                 "Access-Control-Max-Age": "3600",
@@ -22,7 +27,7 @@ def qr_handler(request):
     if request.method != "POST":
         return ("Method not allowed.", 405)
 
-    cors_headers = {"Access-Control-Allow-Origin": "https://qrhub.tech"}
+    cors_headers = {"Access-Control-Allow-Origin": cors_origin}
 
     try:
         body = request.get_json(silent=True) or {}
