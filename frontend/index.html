@@ -203,6 +203,58 @@
       text-align: right;
     }
 
+    /* ── color pickers ── */
+    .color-row {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      margin-top: .3rem;
+    }
+    input[type="color"] {
+      width: 40px;
+      height: 34px;
+      padding: 2px 3px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 7px;
+      cursor: pointer;
+      background: none;
+      flex-shrink: 0;
+    }
+    input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+    input[type="color"]::-webkit-color-swatch { border: none; border-radius: 4px; }
+    .color-hex { font-size: .82rem; color: #6b7280; font-family: monospace; }
+
+    /* ── logo upload ── */
+    .logo-upload {
+      border: 1.5px dashed #d1d5db;
+      border-radius: 8px;
+      padding: .65rem 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      transition: border-color .15s;
+      font-size: .88rem;
+      color: #9ca3af;
+      margin-top: .3rem;
+    }
+    .logo-upload:hover { border-color: #6366f1; color: #6366f1; }
+    #logo-preview-wrap { display: flex; align-items: center; gap: .75rem; width: 100%; }
+    #logo-preview { width: 36px; height: 36px; object-fit: contain; border-radius: 4px; border: 1px solid #e5e7eb; }
+    #logo-name { font-size: .82rem; color: #374151; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .logo-remove {
+      padding: .2rem .55rem;
+      background: #fee2e2;
+      color: #dc2626;
+      border: none;
+      border-radius: 6px;
+      font-size: .8rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .logo-remove:hover { background: #fecaca; }
+
     /* ── preview ── */
     .preview-box {
       display: flex;
@@ -530,6 +582,38 @@
         </div>
       </div>
 
+      <!-- Colors -->
+      <div class="options">
+        <div class="option-group">
+          <label for="fg-color">QR color</label>
+          <div class="color-row">
+            <input type="color" id="fg-color" value="#000000" oninput="onColorChange('fg-hex', this.value)" />
+            <span id="fg-hex" class="color-hex">#000000</span>
+          </div>
+        </div>
+        <div class="option-group">
+          <label for="bg-color">Background</label>
+          <div class="color-row">
+            <input type="color" id="bg-color" value="#ffffff" oninput="onColorChange('bg-hex', this.value)" />
+            <span id="bg-hex" class="color-hex">#ffffff</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logo -->
+      <div>
+        <label>Logo <span style="color:#9ca3af;font-weight:400">(optional · max 512 KB)</span></label>
+        <div class="logo-upload" id="logo-drop" onclick="document.getElementById('logo-upload').click()">
+          <input type="file" id="logo-upload" accept="image/*" style="display:none" onchange="onLogoChange(this)" />
+          <span id="logo-hint">Click to upload a logo</span>
+          <div id="logo-preview-wrap" style="display:none">
+            <img id="logo-preview" alt="Logo preview" />
+            <span id="logo-name"></span>
+            <button type="button" class="logo-remove" onclick="removeLogo(event)">✕ Remove</button>
+          </div>
+        </div>
+      </div>
+
       <div id="preview-box" class="preview-box">
         <p class="placeholder" id="placeholder">Fill in the fields above to see a preview</p>
         <img id="qr" src="" alt="Generated QR code" style="display:none" />
@@ -635,6 +719,7 @@
     let activeType = 'url';
     let debounceTimer = null;
     let currentObjectUrl = null;
+    let logoBase64 = null;
 
     function switchType(type) {
       document.querySelectorAll('.type-tab').forEach(t =>
@@ -671,10 +756,53 @@
       await fetchQR(payload, false);
     }
 
+    function onColorChange(hexId, value) {
+      document.getElementById(hexId).textContent = value;
+      schedulePreview();
+    }
+
+    function onLogoChange(input) {
+      const file = input.files[0];
+      if (!file) return;
+      if (file.size > 512 * 1024) {
+        showError('Logo must be under 512 KB.');
+        input.value = '';
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = e => {
+        logoBase64 = e.target.result.split(',')[1];
+        document.getElementById('logo-preview').src = e.target.result;
+        document.getElementById('logo-name').textContent = file.name;
+        document.getElementById('logo-hint').style.display = 'none';
+        document.getElementById('logo-preview-wrap').style.display = 'flex';
+        schedulePreview();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeLogo(e) {
+      e.stopPropagation();
+      logoBase64 = null;
+      document.getElementById('logo-upload').value = '';
+      document.getElementById('logo-preview').src = '';
+      document.getElementById('logo-name').textContent = '';
+      document.getElementById('logo-hint').style.display = '';
+      document.getElementById('logo-preview-wrap').style.display = 'none';
+      schedulePreview();
+    }
+
     function buildPayload() {
       const size   = parseInt(document.getElementById('size').value, 10);
       const border = parseInt(document.getElementById('border').value, 10);
-      const base   = { type: activeType, size, border };
+      const base   = {
+        type:     activeType,
+        size,
+        border,
+        fg_color: document.getElementById('fg-color').value,
+        bg_color: document.getElementById('bg-color').value,
+      };
+      if (logoBase64) base.logo = logoBase64;
 
       if (activeType === 'url') {
         return { ...base, url: val('f-url') };

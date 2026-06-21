@@ -1,12 +1,20 @@
+import base64
 import io
+import re
 from urllib.parse import quote
 
 import functions_framework
 import qrcode
+from PIL import Image
 from qrcode.image.pil import PilImage
 
 ALLOWED_ORIGINS = {"https://qrhub.tech", "https://www.qrhub.tech"}
 MAX_DATA_LEN = 2048
+MAX_LOGO_BYTES = 512 * 1024  # 512 KB decoded
+
+
+def _is_hex_color(s):
+    return bool(re.match(r'^#[0-9A-Fa-f]{6}$', s))
 
 
 def _esc_wifi(s):
@@ -113,15 +121,53 @@ def qr_handler(request):
         box_size = max(4, min(int(body.get("size", 10)), 30))
         border   = max(0, min(int(body.get("border", 4)), 10))
 
+        fg_color = (body.get("fg_color") or "#000000").strip()
+        bg_color = (body.get("bg_color") or "#ffffff").strip()
+        if not _is_hex_color(fg_color): fg_color = "#000000"
+        if not _is_hex_color(bg_color): bg_color = "#ffffff"
+
+        logo_b64 = (body.get("logo") or "").strip()
+        has_logo = bool(logo_b64)
+        error_correction = (
+            qrcode.constants.ERROR_CORRECT_H if has_logo
+            else qrcode.constants.ERROR_CORRECT_L
+        )
+
         qr = qrcode.QRCode(
             version=None,
-            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            error_correction=error_correction,
             box_size=box_size,
             border=border,
         )
         qr.add_data(data)
         qr.make(fit=True)
-        img = qr.make_image(image_factory=PilImage).get_image()
+        img = qr.make_image(
+            image_factory=PilImage,
+            fill_color=fg_color,
+            back_color=bg_color,
+        ).get_image()
+
+        if has_logo:
+            logo_bytes = base64.b64decode(logo_b64)
+            if len(logo_bytes) > MAX_LOGO_BYTES:
+                return ("Logo exceeds 512 KB.", 400, cors_headers)
+            logo = Image.open(io.BytesIO(logo_bytes)).convert("RGBA")
+
+            qr_w = img.size[0]
+            max_size = int(qr_w * 0.28)
+            logo.thumbnail((max_size, max_size), Image.LANCZOS)
+
+            # White padded background behind logo for scan contrast
+            pad = max(4, int(qr_w * 0.015))
+            bg_pad = Image.new("RGBA",
+                (logo.width + 2 * pad, logo.height + 2 * pad),
+                (255, 255, 255, 255))
+            bg_pad.paste(logo, (pad, pad), logo)
+
+            pos = ((qr_w - bg_pad.width) // 2, (qr_w - bg_pad.height) // 2)
+            img_rgba = img.convert("RGBA")
+            img_rgba.paste(bg_pad, pos, bg_pad)
+            img = img_rgba.convert("RGB")
 
         buf = io.BytesIO()
         img.save(buf, format="PNG")
