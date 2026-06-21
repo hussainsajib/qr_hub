@@ -24,17 +24,83 @@
   <meta name="twitter:description" content="Generate QR codes for URLs, WiFi, contacts, SMS, email and more. Free, no signup, no watermark." />
   <meta name="twitter:image" content="https://qrhub.tech/og-image.png" />
 
-  <!-- Schema.org structured data -->
+  <!-- Schema.org: WebApplication -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "QR Hub",
     "url": "https://qrhub.tech",
-    "description": "Free online QR code generator. Create QR codes for URLs, WiFi networks, contacts, SMS, email, phone numbers, and plain text.",
+    "description": "Free online QR code generator. Create QR codes for URLs, WiFi networks, contacts (vCard), SMS, email, phone numbers, and plain text.",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Web",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    "browserRequirements": "Requires JavaScript",
+    "screenshot": "https://qrhub.tech/og-image.png",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": [
+      "URL QR code generator",
+      "WiFi QR code generator",
+      "vCard contact QR code generator",
+      "SMS QR code generator",
+      "Email QR code generator",
+      "Phone number QR code generator",
+      "Plain text QR code generator",
+      "Custom QR code colors",
+      "Logo overlay on QR codes",
+      "High-resolution PNG download",
+      "No signup required",
+      "No watermark"
+    ]
+  }
+  </script>
+
+  <!-- Schema.org: FAQPage (triggers rich results in Google) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is QR Hub free to use?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free. No account required, no watermarks, no download limits." }
+      },
+      {
+        "@type": "Question",
+        "name": "What types of QR codes can I create?",
+        "acceptedAnswer": { "@type": "Answer", "text": "QR Hub supports seven types: URL (links to any website), WiFi (lets people join a network by scanning), vCard (saves a contact to your phone), SMS (opens a pre-addressed text message), Email (opens a pre-addressed email), Text (displays plain text), and Phone (initiates a call)." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I create a WiFi QR code?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Select the WiFi type, enter your network name (SSID) and password, choose the security type (WPA/WPA2 is most common), and generate. Anyone who scans the code will be prompted to join the network — no typing required." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a vCard QR code?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A vCard QR code encodes contact information (name, phone, email, organisation, website). When scanned, most phones offer to save the details directly to the address book — ideal for business cards." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I add my logo to a QR code?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Open the Customize panel, upload your logo (PNG, JPG, SVG — up to 512 KB), and it will be centered on the QR code. The error correction level is automatically increased to ensure the code remains scannable." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do QR codes expire?",
+        "acceptedAnswer": { "@type": "Answer", "text": "QR codes generated here are static — the data is encoded directly in the image. They never expire and work indefinitely, as long as the destination remains active." }
+      },
+      {
+        "@type": "Question",
+        "name": "What size should my QR code be for print?",
+        "acceptedAnswer": { "@type": "Answer", "text": "For business cards, a minimum of 2 cm × 2 cm (0.8 in) is recommended. For signage viewed from 3 metres, use at least 9 cm × 9 cm. Increase box size in the Customize panel for higher-resolution prints." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use these QR codes commercially?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. There are no restrictions on how you use the generated QR codes." }
+      }
+    ]
   }
   </script>
 
@@ -640,6 +706,30 @@
       padding: 0 1rem 3rem;
     }
 
+    /* ── qr types grid ── */
+    .qr-types {
+      width: 100%;
+      max-width: 880px;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 4px 20px rgba(0,0,0,.04);
+      padding: 2rem;
+      margin: 0 auto;
+    }
+    .types-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .type-card {
+      background: #f9fafb;
+      border-radius: 10px;
+      padding: 1rem 1rem 1.1rem;
+      border: 1px solid #f3f4f6;
+    }
+    .type-card h3 { font-size: .875rem; font-weight: 600; color: #4f46e5; margin-bottom: .4rem; }
+    .type-card p  { font-size: .82rem; color: #6b7280; line-height: 1.6; }
+
     /* ── mobile ── */
     @media (max-width: 680px) {
       .ad-sidebar { display: none; }
@@ -1019,6 +1109,41 @@
       <div class="faq-item">
         <h3>Can I use these QR codes commercially?</h3>
         <p>Yes. There are no restrictions on how you use the generated QR codes.</p>
+      </div>
+    </section>
+
+    <!-- QR Code Types — keyword-rich descriptions for each supported type -->
+    <section class="qr-types" aria-labelledby="types-heading">
+      <h2 class="section-title" id="types-heading">QR Code Types Explained</h2>
+      <div class="types-grid">
+        <div class="type-card">
+          <h3>URL QR Code</h3>
+          <p>Turn any link into a scannable code — website, landing page, social profile, or app store listing. Ideal for business cards, product packaging, posters, and menus.</p>
+        </div>
+        <div class="type-card">
+          <h3>WiFi QR Code</h3>
+          <p>Let guests join your network without typing a password. One scan connects them instantly — perfect for cafes, hotels, Airbnbs, and offices running WPA2 or WEP.</p>
+        </div>
+        <div class="type-card">
+          <h3>vCard QR Code</h3>
+          <p>Encode your contact details — name, phone, email, company, and website — in a single code. When scanned, the phone prompts to save the card to the address book.</p>
+        </div>
+        <div class="type-card">
+          <h3>SMS QR Code</h3>
+          <p>Open a pre-addressed text message with optional body text. Useful for customer support shortcodes, appointment bookings, keyword campaigns, and feedback forms.</p>
+        </div>
+        <div class="type-card">
+          <h3>Email QR Code</h3>
+          <p>Launch a compose window with recipient, subject, and body already filled in. Great for contact forms, newsletter opt-ins, and directing feedback to a support address.</p>
+        </div>
+        <div class="type-card">
+          <h3>Text QR Code</h3>
+          <p>Encode any plain text — coupon codes, serial numbers, instructions, or short messages. The content displays on screen when scanned; no internet connection needed.</p>
+        </div>
+        <div class="type-card">
+          <h3>Phone QR Code</h3>
+          <p>Encode a phone number so scanning opens the dialler ready to call. One scan, one tap — useful for business signage, print advertisements, and restaurant menus.</p>
+        </div>
       </div>
     </section>
 
