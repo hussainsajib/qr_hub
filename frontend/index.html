@@ -4,22 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>QR Hub – Free QR Code Generator</title>
-  <meta name="description" content="Free online QR code generator. Create custom QR codes for any URL instantly — no signup, no watermark, no limits." />
-  <meta name="keywords" content="QR code generator, free QR code, create QR code, QR code maker, online QR generator" />
+  <title>QR Hub – Free QR Code Generator | URL, WiFi, vCard, SMS & More</title>
+  <meta name="description" content="Free online QR code generator. Create QR codes for URLs, WiFi networks, contacts (vCard), SMS, email, phone numbers, and plain text — no signup, no watermark." />
+  <meta name="keywords" content="QR code generator, free QR code, wifi QR code, vCard QR code, SMS QR code, email QR code, QR code maker, online QR generator" />
   <link rel="canonical" href="https://qrhub.tech" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://qrhub.tech" />
   <meta property="og:title" content="QR Hub – Free QR Code Generator" />
-  <meta property="og:description" content="Generate QR codes for any URL instantly. Free, no signup, no watermark." />
+  <meta property="og:description" content="Generate QR codes for URLs, WiFi, contacts, SMS, email and more. Free, no signup, no watermark." />
   <meta property="og:image" content="https://qrhub.tech/og-image.png" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="QR Hub – Free QR Code Generator" />
-  <meta name="twitter:description" content="Generate QR codes for any URL instantly. Free, no signup, no watermark." />
+  <meta name="twitter:description" content="Generate QR codes for URLs, WiFi, contacts, SMS, email and more. Free, no signup, no watermark." />
   <meta name="twitter:image" content="https://qrhub.tech/og-image.png" />
 
   <!-- Schema.org structured data -->
@@ -29,7 +29,7 @@
     "@type": "WebApplication",
     "name": "QR Hub",
     "url": "https://qrhub.tech",
-    "description": "Free online QR code generator. Create custom QR codes for any URL instantly.",
+    "description": "Free online QR code generator. Create QR codes for URLs, WiFi networks, contacts, SMS, email, phone numbers, and plain text.",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Web",
     "offers": {
@@ -63,19 +63,6 @@
       padding: .6rem 1rem;
       min-height: 100px;
     }
-    .ad-placeholder {
-      width: 728px;
-      max-width: 100%;
-      height: 90px;
-      background: #f3f4f6;
-      border: 1.5px dashed #d1d5db;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #9ca3af;
-      font-size: .8rem;
-    }
 
     /* ── main layout ── */
     main {
@@ -97,10 +84,6 @@
       gap: 1rem;
       padding-top: .25rem;
     }
-    .ad-sidebar .ad-placeholder {
-      width: 160px;
-      height: 600px;
-    }
 
     /* ── card ── */
     .card {
@@ -109,7 +92,7 @@
       box-shadow: 0 4px 24px rgba(0,0,0,.08);
       padding: 2rem;
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
@@ -118,17 +101,87 @@
     .card h1 { font-size: 1.4rem; font-weight: 600; color: #111; }
     label { font-size: .85rem; font-weight: 500; color: #374151; }
 
-    input[type="url"] {
+    /* ── type tabs ── */
+    .type-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin-top: .4rem;
+    }
+    .type-tab {
+      padding: .28rem .7rem;
+      background: #fff;
+      color: #374151;
+      border: 1.5px solid #d1d5db;
+      border-radius: 20px;
+      font-size: .78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .15s;
+      line-height: 1.5;
+    }
+    .type-tab.active {
+      background: #6366f1;
+      color: #fff;
+      border-color: #6366f1;
+    }
+    .type-tab:hover:not(.active) {
+      border-color: #6366f1;
+      color: #6366f1;
+    }
+
+    /* ── form fields ── */
+    .type-fields {
+      display: flex;
+      flex-direction: column;
+      gap: .85rem;
+    }
+    .field-group { display: flex; flex-direction: column; gap: .3rem; }
+    .field-row { display: flex; gap: .75rem; align-items: flex-end; }
+    .field-row .field-group { flex: 1; }
+
+    input[type="url"],
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"] {
       width: 100%;
       padding: .65rem .85rem;
       border: 1.5px solid #d1d5db;
       border-radius: 8px;
-      font-size: 1rem;
+      font-size: .95rem;
+      font-family: inherit;
       outline: none;
       transition: border-color .15s;
     }
-    input[type="url"]:focus { border-color: #6366f1; }
+    input[type="url"]:focus,
+    input[type="text"]:focus,
+    input[type="tel"]:focus,
+    input[type="email"]:focus { border-color: #6366f1; }
 
+    textarea, select {
+      width: 100%;
+      padding: .65rem .85rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      font-size: .95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .15s;
+    }
+    textarea { resize: vertical; }
+    textarea:focus, select:focus { border-color: #6366f1; }
+    select { cursor: pointer; background: #fff; }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      padding-top: .1rem;
+    }
+    .checkbox-row input[type="checkbox"] { accent-color: #6366f1; width: 15px; height: 15px; cursor: pointer; }
+    .checkbox-row label { cursor: pointer; font-size: .85rem; }
+
+    /* ── size / border sliders ── */
     .options {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -150,6 +203,7 @@
       text-align: right;
     }
 
+    /* ── preview ── */
     .preview-box {
       display: flex;
       flex-direction: column;
@@ -186,8 +240,9 @@
     .preview-box.loading .spinner { display: block; }
     @keyframes spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
 
+    /* ── actions ── */
     .actions { display: flex; gap: .75rem; }
-    button {
+    .actions button {
       flex: 1;
       padding: .65rem;
       background: #6366f1;
@@ -199,8 +254,8 @@
       cursor: pointer;
       transition: background .15s;
     }
-    button:hover { background: #4f46e5; }
-    button:disabled { background: #a5b4fc; cursor: not-allowed; }
+    .actions button:hover { background: #4f46e5; }
+    .actions button:disabled { background: #a5b4fc; cursor: not-allowed; }
 
     #download-btn {
       display: none;
@@ -261,15 +316,15 @@
     .step h3 { font-size: .9rem; font-weight: 600; color: #111; margin-bottom: .3rem; }
     .step p { font-size: .85rem; color: #6b7280; line-height: 1.5; }
 
-    /* ── inline ad (below tool) ── */
+    /* ── inline ad ── */
     .ad-inline {
       width: 100%;
       max-width: 860px;
       margin: 0 auto;
       display: flex;
       justify-content: center;
+      min-height: 90px;
     }
-    .ad-inline .ad-placeholder { width: 728px; height: 90px; }
 
     /* ── FAQ ── */
     .faq {
@@ -308,7 +363,7 @@
     footer a { color: #6366f1; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
-    /* ── content wrapper (below the tool row) ── */
+    /* ── content wrapper ── */
     .content-section {
       width: 100%;
       display: flex;
@@ -320,34 +375,144 @@
 
     @media (max-width: 680px) {
       .ad-sidebar { display: none; }
-      .ad-placeholder { width: 320px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top leaderboard ad -->
-  <div class="ad-banner">
-    <!-- Replace this div with your AdSense leaderboard ad unit once approved -->
-    <div class="ad-placeholder">Advertisement · 728×90</div>
-  </div>
+  <!-- Top leaderboard ad (Auto ads — no ins tag needed) -->
+  <div class="ad-banner"></div>
 
   <main>
-    <!-- Sidebar ad (desktop only) -->
-    <aside class="ad-sidebar">
-      <!-- Replace with AdSense 160×600 skyscraper ad unit -->
-      <div class="ad-placeholder" style="height:600px">Ad · 160×600</div>
-    </aside>
+    <!-- Sidebar ad (desktop only — Auto ads) -->
+    <aside class="ad-sidebar"></aside>
 
     <!-- QR Generator card -->
     <div class="card">
       <h1>QR Code Generator</h1>
 
+      <!-- QR type selector -->
       <div>
-        <label for="url">URL</label>
-        <input id="url" type="url" placeholder="https://example.com" autocomplete="off" style="margin-top:.3rem" />
+        <label>QR Type</label>
+        <div class="type-tabs" role="tablist">
+          <button class="type-tab active" data-type="url"   onclick="switchType('url')"   role="tab">URL</button>
+          <button class="type-tab"        data-type="wifi"  onclick="switchType('wifi')"  role="tab">WiFi</button>
+          <button class="type-tab"        data-type="vcard" onclick="switchType('vcard')" role="tab">vCard</button>
+          <button class="type-tab"        data-type="sms"   onclick="switchType('sms')"   role="tab">SMS</button>
+          <button class="type-tab"        data-type="email" onclick="switchType('email')" role="tab">Email</button>
+          <button class="type-tab"        data-type="text"  onclick="switchType('text')"  role="tab">Text</button>
+          <button class="type-tab"        data-type="phone" onclick="switchType('phone')" role="tab">Phone</button>
+        </div>
       </div>
 
+      <!-- Dynamic form fields -->
+      <div id="form-fields">
+
+        <!-- URL -->
+        <div id="fields-url" class="type-fields">
+          <div class="field-group">
+            <label for="f-url">URL</label>
+            <input id="f-url" type="url" placeholder="https://example.com" autocomplete="off" />
+          </div>
+        </div>
+
+        <!-- WiFi -->
+        <div id="fields-wifi" class="type-fields" style="display:none">
+          <div class="field-group">
+            <label for="f-ssid">Network name (SSID)</label>
+            <input id="f-ssid" type="text" placeholder="MyWiFiNetwork" autocomplete="off" />
+          </div>
+          <div class="field-group">
+            <label for="f-password">Password</label>
+            <input id="f-password" type="text" placeholder="Leave blank for open networks" autocomplete="off" />
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label for="f-security">Security type</label>
+              <select id="f-security">
+                <option value="WPA">WPA / WPA2</option>
+                <option value="WEP">WEP</option>
+                <option value="">None (open)</option>
+              </select>
+            </div>
+            <div class="checkbox-row" style="padding-bottom:.65rem">
+              <input id="f-hidden" type="checkbox" />
+              <label for="f-hidden">Hidden network</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- vCard -->
+        <div id="fields-vcard" class="type-fields" style="display:none">
+          <div class="field-group">
+            <label for="f-vcard-name">Full name <span style="color:#dc2626">*</span></label>
+            <input id="f-vcard-name" type="text" placeholder="Jane Smith" autocomplete="off" />
+          </div>
+          <div class="field-group">
+            <label for="f-vcard-phone">Phone</label>
+            <input id="f-vcard-phone" type="tel" placeholder="+1 555 000 0000" autocomplete="off" />
+          </div>
+          <div class="field-group">
+            <label for="f-vcard-email">Email</label>
+            <input id="f-vcard-email" type="email" placeholder="jane@example.com" autocomplete="off" />
+          </div>
+          <div class="field-group">
+            <label for="f-vcard-org">Organisation</label>
+            <input id="f-vcard-org" type="text" placeholder="Acme Corp" autocomplete="off" />
+          </div>
+          <div class="field-group">
+            <label for="f-vcard-url">Website</label>
+            <input id="f-vcard-url" type="url" placeholder="https://example.com" autocomplete="off" />
+          </div>
+        </div>
+
+        <!-- SMS -->
+        <div id="fields-sms" class="type-fields" style="display:none">
+          <div class="field-group">
+            <label for="f-sms-phone">Phone number <span style="color:#dc2626">*</span></label>
+            <input id="f-sms-phone" type="tel" placeholder="+1 555 000 0000" autocomplete="off" />
+          </div>
+          <div class="field-group">
+            <label for="f-sms-msg">Message <span style="color:#9ca3af;font-weight:400">(optional)</span></label>
+            <textarea id="f-sms-msg" placeholder="Pre-filled message text…" rows="3"></textarea>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div id="fields-email" class="type-fields" style="display:none">
+          <div class="field-group">
+            <label for="f-email-addr">Email address <span style="color:#dc2626">*</span></label>
+            <input id="f-email-addr" type="email" placeholder="contact@example.com" autocomplete="off" />
+          </div>
+          <div class="field-group">
+            <label for="f-email-subj">Subject <span style="color:#9ca3af;font-weight:400">(optional)</span></label>
+            <input id="f-email-subj" type="text" placeholder="Hello!" autocomplete="off" />
+          </div>
+          <div class="field-group">
+            <label for="f-email-body">Body <span style="color:#9ca3af;font-weight:400">(optional)</span></label>
+            <textarea id="f-email-body" placeholder="Message body…" rows="3"></textarea>
+          </div>
+        </div>
+
+        <!-- Text -->
+        <div id="fields-text" class="type-fields" style="display:none">
+          <div class="field-group">
+            <label for="f-text">Plain text</label>
+            <textarea id="f-text" placeholder="Enter any text to encode…" rows="4"></textarea>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div id="fields-phone" class="type-fields" style="display:none">
+          <div class="field-group">
+            <label for="f-phone-num">Phone number</label>
+            <input id="f-phone-num" type="tel" placeholder="+1 555 000 0000" autocomplete="off" />
+          </div>
+        </div>
+
+      </div><!-- /form-fields -->
+
+      <!-- Size / border sliders -->
       <div class="options">
         <div class="option-group">
           <label for="size">Box size</label>
@@ -366,7 +531,7 @@
       </div>
 
       <div id="preview-box" class="preview-box">
-        <p class="placeholder" id="placeholder">Enter a URL to see a preview</p>
+        <p class="placeholder" id="placeholder">Fill in the fields above to see a preview</p>
         <img id="qr" src="" alt="Generated QR code" style="display:none" />
         <div class="spinner"></div>
       </div>
@@ -389,18 +554,18 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <h3>Paste your URL</h3>
-          <p>Enter any website address into the URL field above.</p>
+          <h3>Choose a type</h3>
+          <p>Select the QR code type — URL, WiFi, vCard, SMS, Email, Text, or Phone.</p>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <h3>Adjust settings</h3>
-          <p>Use the sliders to control box size and border width to suit your use case.</p>
+          <h3>Fill in the fields</h3>
+          <p>Enter the relevant details. A live preview generates automatically as you type.</p>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <h3>Preview instantly</h3>
-          <p>Your QR code generates in real time as you type — no button press needed.</p>
+          <h3>Adjust settings</h3>
+          <p>Use the sliders to control box size and border width to suit your use case.</p>
         </div>
         <div class="step">
           <div class="step-num">4</div>
@@ -410,11 +575,8 @@
       </div>
     </section>
 
-    <!-- Inline ad between sections -->
-    <div class="ad-inline">
-      <!-- Replace with AdSense 728×90 ad unit -->
-      <div class="ad-placeholder">Advertisement · 728×90</div>
-    </div>
+    <!-- Inline ad between sections (Auto ads) -->
+    <div class="ad-inline"></div>
 
     <!-- FAQ -->
     <section class="faq">
@@ -425,20 +587,28 @@
         <p>Yes, completely free. No account required, no watermarks, no download limits.</p>
       </div>
       <div class="faq-item">
-        <h3>What size should my QR code be for print?</h3>
-        <p>For business cards, a minimum of 2 cm × 2 cm (around 0.8 inches) is recommended. For posters or signage viewed from a distance, scale up proportionally — a QR code viewed from 3 metres should be at least 9 cm × 9 cm.</p>
+        <h3>What types of QR codes can I create?</h3>
+        <p>QR Hub supports seven types: <strong>URL</strong> (links to any website), <strong>WiFi</strong> (lets people join a network by scanning), <strong>vCard</strong> (saves a contact to your phone), <strong>SMS</strong> (opens a pre-addressed text message), <strong>Email</strong> (opens a pre-addressed email), <strong>Text</strong> (displays plain text), and <strong>Phone</strong> (initiates a call).</p>
       </div>
       <div class="faq-item">
-        <h3>What is box size?</h3>
-        <p>Each QR code is made up of small square modules. Box size controls how many pixels wide each module is. A higher value produces a larger, higher-resolution image — useful for print. A lower value produces a smaller file suitable for web.</p>
+        <h3>How do I create a WiFi QR code?</h3>
+        <p>Select the WiFi type, enter your network name (SSID) and password, choose the security type (WPA/WPA2 is most common), and generate. Anyone who scans the code will be prompted to join the network automatically — no typing required.</p>
       </div>
       <div class="faq-item">
-        <h3>What is the border setting?</h3>
-        <p>The border (also called the quiet zone) is the blank white space around the QR code. QR code standards recommend a border of at least 4 modules. Reducing it below 4 may cause some scanners to fail, especially when the code is placed directly on a coloured background.</p>
+        <h3>What is a vCard QR code?</h3>
+        <p>A vCard QR code encodes contact information (name, phone, email, organisation, website). When scanned, most phones offer to save the details directly to the address book — ideal for business cards.</p>
       </div>
       <div class="faq-item">
         <h3>Do QR codes expire?</h3>
-        <p>QR codes generated here are static — they encode the URL directly and never expire. As long as the destination URL remains active, the QR code will work indefinitely.</p>
+        <p>QR codes generated here are static — the data is encoded directly in the image. They never expire and work indefinitely, as long as the destination (URL, phone number, etc.) remains active.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What size should my QR code be for print?</h3>
+        <p>For business cards, a minimum of 2 cm × 2 cm (around 0.8 inches) is recommended. For posters or signage viewed from a distance, scale up proportionally — a code viewed from 3 metres should be at least 9 cm × 9 cm.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What is box size?</h3>
+        <p>Each QR code is made up of small square modules. Box size controls how many pixels wide each module is. A higher value produces a larger, higher-resolution image useful for print. A lower value produces a smaller file suitable for web use.</p>
       </div>
       <div class="faq-item">
         <h3>Can I use these QR codes commercially?</h3>
@@ -457,8 +627,26 @@
   <script>
     const API_URL = 'https://us-central1-home-automation-479013.cloudfunctions.net/qr-api';
 
+    const FILENAMES = {
+      url: 'qrcode.png', wifi: 'wifi-qr.png', vcard: 'contact-qr.png',
+      sms: 'sms-qr.png', email: 'email-qr.png', text: 'text-qr.png', phone: 'phone-qr.png',
+    };
+
+    let activeType = 'url';
     let debounceTimer = null;
     let currentObjectUrl = null;
+
+    function switchType(type) {
+      document.querySelectorAll('.type-tab').forEach(t =>
+        t.classList.toggle('active', t.dataset.type === type)
+      );
+      document.querySelectorAll('.type-fields').forEach(f =>
+        f.style.display = (f.id === `fields-${type}`) ? '' : 'none'
+      );
+      activeType = type;
+      clearPreview();
+      clearError();
+    }
 
     function onSlider(valId, val) {
       document.getElementById(valId).textContent = val;
@@ -471,18 +659,89 @@
     }
 
     async function preview() {
-      const url = document.getElementById('url').value.trim();
-      if (!url) { clearPreview(); return; }
-      await fetchQR(url, true);
+      const payload = buildPayload();
+      if (!hasPrimaryField(payload)) { clearPreview(); return; }
+      await fetchQR(payload, true);
     }
 
     async function generate() {
-      const url = document.getElementById('url').value.trim();
-      if (!url) { showError('Please enter a URL.'); return; }
-      await fetchQR(url, false);
+      const payload = buildPayload();
+      const err = validatePayload(payload);
+      if (err) { showError(err); return; }
+      await fetchQR(payload, false);
     }
 
-    async function fetchQR(url, isPreview) {
+    function buildPayload() {
+      const size   = parseInt(document.getElementById('size').value, 10);
+      const border = parseInt(document.getElementById('border').value, 10);
+      const base   = { type: activeType, size, border };
+
+      if (activeType === 'url') {
+        return { ...base, url: val('f-url') };
+      }
+      if (activeType === 'wifi') {
+        return { ...base,
+          ssid:     val('f-ssid'),
+          password: val('f-password'),
+          security: document.getElementById('f-security').value,
+          hidden:   document.getElementById('f-hidden').checked,
+        };
+      }
+      if (activeType === 'vcard') {
+        return { ...base,
+          name:  val('f-vcard-name'),
+          phone: val('f-vcard-phone'),
+          email: val('f-vcard-email'),
+          org:   val('f-vcard-org'),
+          url:   val('f-vcard-url'),
+        };
+      }
+      if (activeType === 'sms') {
+        return { ...base, phone: val('f-sms-phone'), message: val('f-sms-msg') };
+      }
+      if (activeType === 'email') {
+        return { ...base,
+          email:   val('f-email-addr'),
+          subject: val('f-email-subj'),
+          body:    val('f-email-body'),
+        };
+      }
+      if (activeType === 'text') {
+        return { ...base, text: val('f-text') };
+      }
+      if (activeType === 'phone') {
+        return { ...base, phone: val('f-phone-num') };
+      }
+      return base;
+    }
+
+    function val(id) {
+      return (document.getElementById(id).value || '').trim();
+    }
+
+    function hasPrimaryField(p) {
+      if (p.type === 'url')   return !!p.url;
+      if (p.type === 'wifi')  return !!p.ssid;
+      if (p.type === 'vcard') return !!p.name;
+      if (p.type === 'sms')   return !!p.phone;
+      if (p.type === 'email') return !!p.email;
+      if (p.type === 'text')  return !!p.text;
+      if (p.type === 'phone') return !!p.phone;
+      return false;
+    }
+
+    function validatePayload(p) {
+      if (p.type === 'url'   && !p.url)   return 'Please enter a URL.';
+      if (p.type === 'wifi'  && !p.ssid)  return 'Please enter the network name (SSID).';
+      if (p.type === 'vcard' && !p.name)  return 'Please enter a full name.';
+      if (p.type === 'sms'   && !p.phone) return 'Please enter a phone number.';
+      if (p.type === 'email' && !p.email) return 'Please enter an email address.';
+      if (p.type === 'text'  && !p.text)  return 'Please enter some text.';
+      if (p.type === 'phone' && !p.phone) return 'Please enter a phone number.';
+      return null;
+    }
+
+    async function fetchQR(payload, isPreview) {
       const btn   = document.getElementById('btn');
       const box   = document.getElementById('preview-box');
       const qrImg = document.getElementById('qr');
@@ -491,9 +750,6 @@
       const ph    = document.getElementById('placeholder');
 
       errEl.style.display = 'none';
-      const size   = parseInt(document.getElementById('size').value, 10);
-      const border = parseInt(document.getElementById('border').value, 10);
-
       box.classList.add('loading');
       if (qrImg.src) qrImg.classList.add('loading');
       if (!isPreview) { btn.disabled = true; btn.textContent = 'Generating…'; }
@@ -502,7 +758,7 @@
         const res = await fetch(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url, size, border }),
+          body: JSON.stringify(payload),
         });
         if (!res.ok) throw new Error(await res.text() || res.statusText);
 
@@ -516,6 +772,7 @@
         ph.style.display = 'none';
         box.classList.add('has-image');
         dlBtn.href = currentObjectUrl;
+        dlBtn.download = FILENAMES[payload.type] || 'qrcode.png';
         dlBtn.style.display = 'block';
       } catch (e) {
         showError(e.message);
@@ -530,11 +787,16 @@
       const box   = document.getElementById('preview-box');
       const ph    = document.getElementById('placeholder');
       const dl    = document.getElementById('download-btn');
+      if (currentObjectUrl) { URL.revokeObjectURL(currentObjectUrl); currentObjectUrl = null; }
       qrImg.src = '';
       qrImg.style.display = 'none';
       ph.style.display = 'block';
-      box.classList.remove('has-image');
+      box.classList.remove('has-image', 'loading');
       dl.style.display = 'none';
+    }
+
+    function clearError() {
+      document.getElementById('error').style.display = 'none';
     }
 
     function showError(msg) {
@@ -543,9 +805,16 @@
       el.style.display = 'block';
     }
 
-    document.getElementById('url').addEventListener('input', schedulePreview);
-    document.getElementById('url').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') { clearTimeout(debounceTimer); generate(); }
+    // Listen for input/change on all form fields
+    document.getElementById('form-fields').addEventListener('input', schedulePreview);
+    document.getElementById('form-fields').addEventListener('change', schedulePreview);
+
+    // Enter key submits (not in textareas)
+    document.getElementById('form-fields').addEventListener('keydown', e => {
+      if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+        clearTimeout(debounceTimer);
+        generate();
+      }
     });
   </script>
 </body>
